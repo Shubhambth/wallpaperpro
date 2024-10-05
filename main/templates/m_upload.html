@@ -1,0 +1,58 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+    <body class="bg-gray-100 flex flex-col min-h-screen">
+        <!-- Navbar -->
+        <nav class="bg-indigo-600 w-full py-4">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <a href="/" class="text-white text-lg font-bold">TIT Wallpaper</a>
+                <ul class="flex space-x-6">
+                    <li><a href="{% url 'home'%}" class="text-white hover:underline">Home</a></li>
+                    <li><a href="#" class="text-white hover:underline">Upload</a></li>
+                    <li><a href="#" class="text-white hover:underline">Gallery</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex items-center justify-center flex-grow">
+            <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Upload a Wallpaper</h2>
+
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    
+
+                    <!-- Title Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700" for="id_title">Title</label>
+                        {{ form.title | add_class:"mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" | attr:"placeholder:Wallpaper Title"}}
+                    </div>
+
+                    <!-- Image Upload Field -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700" for="id_image">Wallpaper Image</label>
+                        {{ form.image | add_class:"mt-1 block w-full text-gray-500 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"}}
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-center">
+                        <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                            Upload
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Uploaded Image Display -->
+                
+            </div>
+        </div>
+    </body>
+</html>

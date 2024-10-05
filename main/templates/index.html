@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wallpaper Website</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-white text-2xl font-bold">Wallpaper Hub</a>
+
+            <!-- Menu Links -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-white hover:text-gray-200">Home</a>
+                <a href="#pc-wallpapers" class="text-white hover:text-gray-200">PC Wallpapers</a>
+                <a href="#mobile-wallpapers" class="text-white hover:text-gray-200">Mobile Wallpapers</a>
+                <a href="{% url 'upload' %}" class="text-white hover:text-gray-200">Upload</a>
+            </div>
+
+            <!-- Login & Signup Buttons -->
+            <div class="space-x-4">
+                <a href="#" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Login</a>
+                <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PC Wallpapers Section -->
+    <section id="pc-wallpapers" class="p-5">
+        <h2 class="text-2xl font-bold text-center mb-6">PC Wallpapers</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Single PC Wallpaper -->
+            {% for paper in wallpapers %}
+            <div class="rounded overflow-hidden shadow-lg bg-white">
+                <img class="w-full h-auto object-cover" src="{{ paper.image.url }}" alt="PC Wallpaper 1">
+                <div class="p-4">
+                    <h3 class="font-bold text-xl mb-2">{{ paper.title }}</h3>
+                    <p class="text-gray-700 text-base">{{ paper.upload_date }}</p>
+                   
+                    <a href="{{ paper.image.url }}" download class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Download</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Mobile Wallpapers Section -->
+    <section id="mobile-wallpapers" class="p-5">
+        <h2 class="text-2xl font-bold text-center mb-6">Mobile Wallpapers</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Single Mobile Wallpaper -->
+            {% for x in mwallpaper %}
+            <div class="rounded overflow-hidden shadow-lg bg-white">
+                <img class="w-full h-auto object-cover" src="{{x.image.url}}" alt="Mobile Wallpaper 1">
+                <div class="p-4">
+                    <h3 class="font-bold text-xl mb-2">{{ x.title }}</h3>
+                    <p class="text-gray-700 text-base">{{ x.upload_date }}</p>
+                    <a href="{{ x.image.url }}" download class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Download</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white p-5 text-center">
+        <p>&copy; 2024 Wallpaper Website. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
