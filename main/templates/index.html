@@ -7,6 +7,13 @@
     <title>Wallpaper Website</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer>
+        // JavaScript to toggle the mobile menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
 
@@ -16,34 +23,80 @@
             <!-- Logo -->
             <a href="#" class="text-white text-2xl font-bold">Wallpaper Hub</a>
 
-            <!-- Menu Links -->
-            <div class="hidden md:flex space-x-6">
-                <a href="#" class="text-white hover:text-gray-200">Home</a>
-                <a href="#pc-wallpapers" class="text-white hover:text-gray-200">PC Wallpapers</a>
-                <a href="#mobile-wallpapers" class="text-white hover:text-gray-200">Mobile Wallpapers</a>
-                <a href="{% url 'upload' %}" class="text-white hover:text-gray-200">Upload</a>
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex items-center">
+                <form method='get'>
+                    {% csrf_token %}
+                <input type="text" name='search_term' placeholder="Search wallpapers..." class="px-4 py-2 rounded-md w-64 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                <button class="ml-2 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Search</button>
+                    </form>
             </div>
 
-            <!-- Login & Signup Buttons -->
-            <div class="space-x-4">
-                <a href="#" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Login</a>
-                <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Sign Up</a>
+            <!-- Hamburger Menu (for mobile) -->
+            <button class="md:hidden text-white focus:outline-none" onclick="toggleMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Menu Links for desktop -->
+            <div class="hidden md:flex space-x-6">
+                <a href="{% url 'home' %}" class="text-white hover:text-gray-200">Home</a>
+                <a href="#pc-wallpapers" class="text-white hover:text-gray-200">PC Wallpapers</a>
+                <a href="#mobile-wallpapers" class="text-white hover:text-gray-200">Mobile Wallpapers</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'upload' %}" class="text-white hover:text-gray-200">Upload</a>
+                {% endif %}
+            </div>
+
+            <!-- Login & Signup Buttons for desktop -->
+            <div class="hidden md:flex space-x-4">
+                {% if user.is_authenticated %}
+               
+                {% else %}
+                <a href="{% url 'login' %}" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Login</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="bg-blue-600 p-4 space-y-2">
+                <!-- Mobile Search Bar -->
+                
+                <div class="flex items-center">
+                    <form method='get'>
+                        {% csrf_token %}
+                    <input type="text" name='search_term' placeholder="Search wallpapers..." class="px-5 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <button class="ml-2 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100">Search</button>
+                        </form>
+                </div>
+                <a href="{% url 'home' %}" class="block text-white hover:text-gray-200 mt-4">Home</a>
+                <a href="#pc-wallpapers" class="block text-white hover:text-gray-200">PC Wallpapers</a>
+                <a href="#mobile-wallpapers" class="block text-white hover:text-gray-200">Mobile Wallpapers</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'upload' %}" class="block text-white hover:text-gray-200">Upload</a>
+                
+                {% else %}
+                <a href="{% url 'login' %}" class="block bg-white text-blue-600 px-4 py-2 rounded mt-4 hover:bg-gray-100">Login</a>
+                {% endif %}
             </div>
         </div>
     </nav>
+    
 
     <!-- PC Wallpapers Section -->
     <section id="pc-wallpapers" class="p-5">
+        
         <h2 class="text-2xl font-bold text-center mb-6">PC Wallpapers</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Single PC Wallpaper -->
             {% for paper in wallpapers %}
             <div class="rounded overflow-hidden shadow-lg bg-white">
-                <img class="w-full h-auto object-cover" src="{{ paper.image.url }}" alt="PC Wallpaper 1">
+                <img class="w-full h-auto object-cover" src="{{ paper.image.url }}" alt="PC Wallpaper">
                 <div class="p-4">
                     <h3 class="font-bold text-xl mb-2">{{ paper.title }}</h3>
                     <p class="text-gray-700 text-base">{{ paper.upload_date }}</p>
-                   
                     <a href="{{ paper.image.url }}" download class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Download</a>
                 </div>
             </div>
@@ -58,7 +111,7 @@
             <!-- Single Mobile Wallpaper -->
             {% for x in mwallpaper %}
             <div class="rounded overflow-hidden shadow-lg bg-white">
-                <img class="w-full h-auto object-cover" src="{{x.image.url}}" alt="Mobile Wallpaper 1">
+                <img class="w-full h-auto object-cover" src="{{x.image.url}}" alt="Mobile Wallpaper">
                 <div class="p-4">
                     <h3 class="font-bold text-xl mb-2">{{ x.title }}</h3>
                     <p class="text-gray-700 text-base">{{ x.upload_date }}</p>
@@ -66,8 +119,6 @@
                 </div>
             </div>
             {% endfor %}
-
-            
         </div>
     </section>
 

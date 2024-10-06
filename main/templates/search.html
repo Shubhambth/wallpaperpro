@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpapers Gallery</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <header class="text-center py-8 bg-blue-500 text-white">
+        <h1 class="text-4xl font-bold">Wallpapers Gallery</h1>
+    </header>
+
+    <div class="container mx-auto py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Wallpaper Card -->
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/400x300" alt="Wallpaper 1" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold mb-2">Wallpaper 1</h2>
+                    <a href="https://via.placeholder.com/400x300" download class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Download</a>
+                </div>
+            </div>
+
+            <!-- Another Wallpaper Card -->
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/400x300" alt="Wallpaper 2" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold mb-2">Wallpaper 2</h2>
+                    <a href="https://via.placeholder.com/400x300" download class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Download</a>
+                </div>
+            </div>
+
+            <!-- Add more wallpapers in the same format -->
+            <!-- Wallpaper Card -->
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/400x300" alt="Wallpaper 3" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold mb-2">Wallpaper 3</h2>
+                    <a href="https://via.placeholder.com/400x300" download class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 bg-gray-800 text-white">
+        <p>&copy; 2024 Wallpapers Gallery. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
